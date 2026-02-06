@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h1>Dashboard</h1>
+{% endblock %}
+
+{% block nav %}
+<li><a href="{{ url_for('admin') }}">Admin Dashboard</a></li>
+{% endblock %}
+
+{% block main_content %}
+
+<h2> Upload To The Database</h2>
+
+<div class="form-container">
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    {{ form.title.label }}
+    {{ form.title() }}
+    {% for error in form.title.errors %}
+        {{ error }}
+    {% endfor %}
+    <br />
+    {{ form.description.label }}
+    {{ form.description() }}
+    {% for error in form.description.errors %} 
+        {{ error }}
+    {% endfor %}
+    <br />
+    {{ form.theme.label }}
+    {{ form.theme() }}
+    {% for error in form.theme.errors %}
+        {{ error }}
+    {% endfor %}
+    <br />
+    {{ form.price_license.label }}
+    {{ form.price_license() }}
+    {% for error in form.price_license.errors %}
+        {{ error }}
+    {% endfor %}
+    <br />
+    {{ form.price_print.label }}
+    {{ form.price_print() }}
+    {% for error in form.price_print.errors %}
+        {{ error }}
+    {% endfor %}
+    <br />
+    {{ form.inventory.label }}
+    {{ form.inventory() }}
+    {% for error in form.inventory.errors %}
+        {{ error }}
+    {% endfor %}
+    <br />
+    {{ form.file.label }}
+    {{ form.file() }}
+    {% for error in form.file.errors %}
+        {{ error }}
+    {% endfor %}
+    <br />
+    {{ form.submit }}
+</form>
+</div>
+
+{% if message %}
+    <p>{{ message }}</p>
+{% endif %}
+
+{% endblock %}
+

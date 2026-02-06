@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h1>Dashboard</h1>
+{% endblock %}
+
+{% block nav %}
+<li><a href="{{ url_for('admin') }}">Admin Dashboard</a></li>
+{% endblock %}
+
+{% block main_content %}
+<h2>Admin Logs Tracker</h2>
+
+<table>
+    <tr>
+        <th>User</th>
+        <th>Action</th>
+        <th>Photo ID</th>
+        <th>Title</th>
+        <th>Timestamp</th>
+    </tr>
+    {% for log in logs %}
+    <tr>
+        <td>{{ log.user_id }}</td>
+        <td>{{ log.action }}</td>
+        <td>{{ log.photo_id }}</td>
+        <td>{{ log.title }}</td>
+        <td>{{ log.timestamp }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

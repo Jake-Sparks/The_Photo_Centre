@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h1>Your Cart</h1>
+{% endblock %}
+
+{% block main_content %}
+
+{% if cart %}
+<div class="cart-container">
+    <table>
+        <tr>
+            <th scope="col">Photo</th>
+            <th scope="col">License</th>
+            <th scope="col">Print Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Preview</th>
+            <th scope="col">Remove</th>
+        </tr>
+        {% for photo_id in cart %}
+        <tr class="cart-item">
+            <td class="cart-item-details">{{ names[photo_id] }}</td>
+            <td class="cart-item-details">{{ "Yes" if cart[photo_id]["license"] else "No" }}</td>  
+            <td class="cart-item-details">{{ cart[photo_id]["print_qty"] }}</td>  
+            <td class="cart-item-details">{{ price[photo_id] }}</td>
+            <td class="cart-item-details">
+                <img class="cart-item-img" src="{{ url_for('static', filename=cart[photo_id]['file_path'].replace('static/', '')) }}" 
+                     alt="{{ names[photo_id] }}">
+            </td>
+            <td class="cart-item-details">
+                <form action="{{ url_for('remove_from_cart', photo_id=photo_id) }}" method="POST">
+                    <button type="submit" class="delete-btn">Remove</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="cart-container">
+    <table>
+        <tr>
+            <th scope="col" id="total-price">Total Price</th>
+        </tr>
+        <tr>
+            <td class="cart-item-details">{{ total_price }}</td>
+        </tr>
+    </table>
+</div>
+
+<div class="cart-container">
+    <a href="{{ url_for('checkout') }}">Proceed to checkout</a>
+    <a href="{{ url_for('home') }}">Continue Shopping</a>
+</div>
+
+{% else %}
+    <p>Your cart is empty!</p>
+{% endif %}
+
+
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h1> Admin Dashboard</h1>
+{% endblock %}
+
+{% block main_content %}
+
+<div class="dashboard">
+<table>
+    <tr>
+        <th>Section</th>
+        <th>Description</th>
+        <th>Action</th>
+    </tr>
+
+    <tr>
+        <td>Upload Photos</td>
+        <td>Add new photos to the gallery</td>
+        <td><a href="{{ url_for('upload') }}">Go</a></td>
+    </tr>
+
+    <tr>
+        <td>Upload Limited Photos</td>
+        <td>Add new limited images to the bidding system</td>
+        <td><a href="{{ url_for('upload_limited') }}">Go</a></td>
+    </tr>
+
+    <tr>
+        <td>Manage Photos</td>
+        <td>View and delete uploaded photos</td>
+        <td><a href="{{ url_for('manage_photos') }}">Go</a></td>
+    </tr>
+
+    <tr>
+        <td>Admin Logs</td>
+        <td>View admin activity logs</td>
+        <td><a href="{{ url_for('view_logs') }}">Go</a></td>
+    </tr>
+    
+    <tr>
+        <td>Payment Logs</td>
+        <td>Check payment transactions</td>
+        <td><a href="{{ url_for('view_payment_logs') }}">Go</a></td>
+    </tr>
+</table>
+</div>
+
+
+{% endblock %}
+

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h1>Photo Gallery</h1>
+{% endblock %}
+
+{% block main_content %}
+
+<div class="gallery-form">
+<form action="{{ url_for('gallery') }}" method="POST" novalidate>
+    {{ form.hidden_tag() }}
+    {{ form.theme() }}
+    {% for error in form.theme.errors %}
+        {{ error }}
+    {% endfor %}
+
+    {{ form.price_min.label }}
+    {{ form.price_min() }}
+    {% for error in form.price_min.errors %}
+        {{ error }}
+    {% endfor %}
+    
+    {{ form.price_max.label }}
+    {{ form.price_max() }}
+    {% for error in form.price_max.errors %}
+        {{ error }}
+    {% endfor %}
+
+    {{ form.filter_type.label }}
+    {{ form.filter_type() }}
+    {% for error in form.filter_type.errors %}
+        {{ error }}
+    {% endfor %}
+    <br />
+    {{ form.submit() }}
+</form>
+</div>
+
+{% if selected_theme %}
+    <h3>{{ selected_theme }}</h3>
+{% endif %}
+
+<!-- Display photos -->
+{% if photos %}
+    <div class="photo-grid">
+        {% for photo in photos %}
+            <div class="photo-item">
+                <!-- wrap text and image inside a link -->
+                <a href="{{ url_for('photo_detail', photo_id=photo.id) }}">
+                    <img src="{{ url_for('static', filename='uploads/' + photo.file_path.split('/')[-1]) }}" alt="{{ photo.title }}">    
+                </a>
+                <p>{{ photo.title }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+{% else %}
+    <p>No photos found for this theme.</p>
+{% endif %}
+
+{% endblock %}

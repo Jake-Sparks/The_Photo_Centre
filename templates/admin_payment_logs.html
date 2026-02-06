@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h1>Dashboard</h1>
+{% endblock %}
+
+{% block nav %}
+<li><a href="{{ url_for('admin') }}">Admin Dashboard</a></li>
+{% endblock %}
+
+{% block main_content %}
+
+<h2>Payment Logs</h2>
+
+    {% if logs %}
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Print Quantity</th>
+                <th>Total</th>
+                <th>Timestamp</th>
+            </tr>
+            {% for log in logs %}
+            <tr>
+                <td>{{ log.id }}</td>
+                <td>{{ log.user_id }}</td>
+                <td>{{ log.print_qty }}</td>
+                <td>{{ "{:.2f}".format(log.total) }}</td>
+                <td>{{ log.timestamp }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    {% else %}
+        <p>No payment logs available.</p>
+    {% endif %}
+
+{% endblock %}

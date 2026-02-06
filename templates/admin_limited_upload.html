@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h1>Dashboard</h1>
+{% endblock %}
+
+{% block nav %}
+<li><a href="{{ url_for('admin') }}">Admin Dashboard</a></li>
+{% endblock %}
+
+{% block main_content %}
+
+<h2>Upload Limited Edition Photo</h2>
+
+<div class="form-container">
+    
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        
+        {{ form.title.label }}
+        {{ form.title() }}
+        {% for error in form.title.errors %}
+            {{ error }}
+        {% endfor %}
+        <br />
+        {{ form.description.label }}
+        {{ form.description() }}
+        {% for error in form.description.errors %}
+            {{ error }}
+        {% endfor %}
+        <br />
+        {{ form.base_price.label }}
+        {{ form.base_price() }}
+        {% for error in form.base_price.errors %}
+            {{ error }}
+        {% endfor %}
+        <br />
+        {{ form.file.label }}
+        {{ form.file() }}
+        {% for error in form.file.errors %}
+            {{ error }}
+        {% endfor %}
+        <br />
+        {{ form.submit() }}
+    </form>
+</div>
+
+{% endblock %}

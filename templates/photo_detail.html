@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h1>Photo Details</h1>
+{% endblock %}
+
+{% block main_content %}
+
+<h2>{{ photo.title }}</h2>
+
+<div class="photo-details">
+    <img src="{{ url_for('static', filename=photo.file_path.replace('static/', '')) }}" alt="{{ photo.title }}" />
+    <p>{{ photo.description }}</p>
+    <p>Available Prints: {{ photo.inventory }}</p>
+    <p>License Price: €{{ photo.price_license }}</p>
+    <p>Print Price: €{{ photo.price_print }}</p>
+    
+    <h3>Choose Your Purchase Option</h3>
+
+    <div class="purchase-form">
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        
+        <div>
+            {{ form.buy_license.label }}
+            {{ form.buy_license() }}
+            {% for error in form.buy_license.errors %}
+            {{ error }}
+            {% endfor %}
+        </div>
+        
+        <div>
+            {{ form.buy_print.label }}
+            {{ form.buy_print() }}
+            {% for error in form.buy_print.errors %}
+            {{ error }}
+            {% endfor %}    
+        </div>
+        
+        <div>
+            {{ form.quantity.label }}
+            {{ form.quantity() }}
+            {% for error in form.quantity.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+        
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+    </div>
+</div>
+
+{% if message %}
+<p>{{ message }}</p>
+{% endif %}
+
+{% endblock %}

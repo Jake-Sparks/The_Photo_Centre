@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>{{ caption }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+
+<body>
+    {% include "flash.html" %}
+    <header>
+        {% block header %}
+        {% endblock %}
+    </header>
+    <nav>
+        {% if g.user %}
+            <ul>
+                <li>{{ g.user }}</li>
+                {% block nav %}
+                {% endblock %}
+                <li><a href="{{ url_for('home') }}" class="{% if request.endpoint == 'home' %} active {% endif %}">Home</a></li>
+                <li><a href="{{ url_for('gallery') }}" class="{% if request.endpoint == 'gallery' %} active {% endif %}">Gallery</a></li>
+                <li><a href="{{ url_for('limited_edition') }}" class="{% if request.endpoint == 'limited_edition' %} active {% endif %}">Auction</a></li>
+                <li><a href="{{ url_for('cart') }}" class="{% if request.endpoint == 'cart' %} active {% endif %}">Cart</a></li>
+                <li><a href="{{ url_for('profile') }}" class="{% if request.endpoint == 'profile' %} active {% endif %}">Profile</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>   
+        {% else %}
+            <ul>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('signup') }}">Sign-up</a></li>
+            </ul>
+        {% endif %}
+    </nav>
+
+    {% block main_content %}
+
+    {% endblock %}
+
+    <footer>
+        <ul>
+            <li>© Photography taken by Jake Sparks</li>
+            <li>https://flask.palletsprojects.com/en/stable/patterns/fileuploads/</li> 
+            <li>https://flask.palletsprojects.com/en/stable/patterns/flashing/</li>
+        </ul>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h1>Bid on {{ photo["title"] }}</h1>
+{% endblock %}
+
+{% block main_content %}
+<div class="photo-details">
+    <img src="{{ url_for('static', filename=photo['file_path'].replace('static/', '')) }}" alt="{{ photo['title'] }}">
+    <h3>{{ photo['title'] }}</h3>
+    <p>{{ photo['description'] }}</p>
+    <p>Current Highest Bid: €{{ highest_bid }}</p>
+    <p>Auction Ends: {{ photo['end_date'] }}</p>
+
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        {{ form.bid_amount.label }}
+        {{ form.bid_amount() }}
+        {% for error in form.bid_amount.errors %} 
+            {{ error }}
+        {% endfor %}
+        <br />
+        {{ form.submit() }}
+    </form>
+</div>
+
+{% if message %}
+    <p>{{ message }}</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h1>Checkout</h1>
+{% endblock %}
+
+{% block main_content %}
+
+<table>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">License</th>
+      <th scope="col">Print Quantity</th>
+      <th scope="col">Price</th>
+    </tr>
+    {% for photo_id in cart %}
+      <tr>
+        <td>{{ names[photo_id] }}</td>
+        <td>{{ "Yes" if cart[photo_id]['license'] else "No" }}</td>
+        <td>{{ cart[photo_id]['print_qty'] }}</td>
+        <td>{{ "{:.2f}".format(price[photo_id]) }}</td>
+      </tr>
+      {% endfor %}
+</table>
+
+<h3>Total: {{ total_price }}</h3>
+
+<form action="" method="POST" novalidate>
+  {{ form.hidden_tag() }}
+  {{ form.name.label }}    
+  {{ form.name() }}
+  {% for error in form.name.errors %}
+    {{ error }}
+  {% endfor %}
+  <br />
+  {{ form.shipping.label }}
+  {{ form.shipping() }}
+  {% for error in form.shipping.errors %}
+    {{ error }}
+  {% endfor %}
+  <br />
+  {{ form.payment.label }}
+  {{ form.payment() }}
+  {% for error in form.payment.errors %}
+    {{ error }}
+  {% endfor %}
+  <br />
+  {{ form.submit() }}
+</form>
+
+{% endblock %}
+

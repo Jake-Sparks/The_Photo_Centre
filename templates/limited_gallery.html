@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h1>Limited Edition Photography</h1>
+{% endblock %}
+
+{% block main_content %}
+<div class="limited-container">
+    {% for photo in photos %}
+    <div class="photo-card">
+        <img src="{{ photo['file_path'] }}" alt="{{ photo['title'] }}">
+        <h3>{{ photo['title'] }}</h3>
+        <p>{{ photo['description'] }}</p>
+        <p>Starting Bid: €{{ photo['base_price'] }}</p>
+        {% if message %}
+        {{ message }}
+        {% endif %}
+        <p>Auction Ends: {{ photo['end_date'] }}</p>
+        <a href="{{ url_for('bid_on_photo', photo_id=photo['id']) }}">Place Bid</a>
+    </div>
+    {% endfor %}
+</div>
+
+<h2>Leaderboard - Highest Bids</h2>
+
+<div class="leaderboard">
+<table>
+    <tr>
+        <th>User</th>
+        <th>Photo</th>
+        <th>Bid Amount (€)</th>
+    </tr>
+    {% for bid in bids %}
+    <tr>
+        <td>{{ bid.user_id }}</td>
+        <td>{{ bid.title }}</td>
+        <td>€{{ bid.bid_amount }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+
+{% endblock %}

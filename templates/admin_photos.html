@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h1>Dashboard</h1>
+{% endblock %}
+
+{% block nav %}
+<li><a href="{{ url_for('admin') }}">Admin Dashboard</a></li>
+{% endblock %}
+
+{% block main_content %}
+
+<h2>Manage Photos</h2>
+
+<form action="" method="POST" novalidate>
+    {{ delete_form.hidden_tag() }}
+    {{ delete_form.delete_title.label }}
+    {{ delete_form.delete_title() }}
+    <br />
+    {{ delete_form.delete_submit() }}
+</form>
+
+<div class="photos-container">
+    {% for photo in photos %}
+    <div class="photo-card">
+        <div class="photo-info">
+            <p>{{ photo.title }}</p>
+            <p>{{ photo.description }}</p>
+            <p>Theme: {{ photo.theme }}</p>
+            <p>License Price: €{{ photo.price_license }}</p>
+            <p>Print Price: €{{ photo.price_print }}</p>
+            <p>Inventory: {{ photo.inventory }}</p>
+            <img src="{{ url_for('static', filename=photo.file_path.replace('static/', '')) }}" />
+        </div>
+
+
+        <form action="" method="POST">
+            {{ update_forms[photo.id].hidden_tag() }}
+            {{ update_forms[photo.id].photo_id() }}
+            {% for error in update_forms[photo.id].photo_id.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ update_forms[photo.id].title.label }}
+            {{ update_forms[photo.id].title() }}
+            {% for error in update_forms[photo.id].title.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ update_forms[photo.id].description.label }}
+            {{ update_forms[photo.id].description() }}
+            {% for error in update_forms[photo.id].description.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ update_forms[photo.id].price_license.label }}
+            {{ update_forms[photo.id].price_license() }}
+            {% for error in update_forms[photo.id].price_license.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ update_forms[photo.id].price_print.label }}
+            {{ update_forms[photo.id].price_print() }}
+            {% for error in update_forms[photo.id].price_print.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ update_forms[photo.id].inventory.label }}
+            {{ update_forms[photo.id].inventory() }}
+            {% for error in update_forms[photo.id].inventory.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ update_forms[photo.id].update_submit() }}
+        </form>
+
+
+    </div>
+    {% endfor %}
+</div>
+
+{% if message %}
+<p> {{ message }}</p>
+{% endif %}
+
+{% endblock %}

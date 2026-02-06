@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h1>Your Profile</h1>
+{% endblock %}
+
+{% block main_content %}
+<h2>{{ user_id }}'s Profile</h2>
+<h3>Purchase History</h3>
+
+{% if purchases %}
+<table>
+    <tr>
+        <th>Image</th>
+        <th>Title</th>
+        <th>Purchase Date</th>
+        <th>License</th>
+        <th>Print Quantity</th>
+    </tr>
+    {% for purchase in purchases %}
+    <tr>
+        <td><img src="{{ purchase.file_path }}" alt="{{ purchase.title }}" style="width: 80px;"></td>
+        <td>{{ purchase.title }}</td>
+        <td>{{ purchase.purchase_date }}</td>
+        <td>
+            {% if purchase.license %}
+                Yes
+            {% else %}
+                No
+            {% endif %}
+        </td>
+        <td>
+            {% if purchase.print_qty > 0 %}
+                {{ purchase.print_qty }} Print(s)
+            {% else %}
+                No Prints
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% else %}
+    <p>No past purchases</p>
+{% endif %}
+
+{% endblock %}
