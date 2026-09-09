@@ -49,7 +49,7 @@ git clone [your-repo-url]
 cd [project-folder]
 
 python3.12 -m venv venv
-source venv/bin/activate      # Windows: venv\Scripts\activate
+source venv/bin/activate    
 
 pip install -r requirements.txt
 ```
